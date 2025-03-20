@@ -1,5 +1,11 @@
 # project_mlops_interface_frontend
 
+# install
+```
+/Users/js/.nvm/versions/node/v22.14.0/bin/npm install
+/Users/js/.nvm/versions/node/v22.14.0/bin/npm install vue-router axios dotenv
+```
+
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
