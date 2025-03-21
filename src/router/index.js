@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import ChatBot from '../components/ChatBot.vue'
+import PageB from '../components/PageB.vue'
+import PageC from '../components/PageC.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -17,12 +19,12 @@ const router = createRouter({
     {
       path: '/b',
       name: 'b',
-      component: ChatBot
+      component: PageB
     },
     {
       path: '/c',
       name: 'c',
-      component: ChatBot
+      component: PageC
     }
   ]
 })

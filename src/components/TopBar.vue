@@ -1,6 +1,6 @@
 <template>
   <nav class="top-bar">
-    <div class="menu-container">
+    <div class="left-section">
       <div class="auth-section">
         <button v-if="!showTokenInput" @click="showTokenInput = true" class="menu-item">인증</button>
         <div v-else class="token-input-container">
@@ -16,6 +16,9 @@
         </div>
         <span v-if="authStore.token" class="auth-status">인증됨</span>
       </div>
+    </div>
+    <div class="right-section">
+      <router-link to="/" class="menu-item">챗봇</router-link>
       <router-link to="/b" class="menu-item">B</router-link>
       <router-link to="/c" class="menu-item">C</router-link>
     </div>
@@ -49,11 +52,18 @@ const handleTokenCancel = () => {
   background-color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.menu-container {
+.left-section {
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+}
+
+.right-section {
+  display: flex;
   gap: 2rem;
   align-items: center;
 }
