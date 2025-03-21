@@ -4,6 +4,7 @@
 ```
 /Users/js/.nvm/versions/node/v22.14.0/bin/npm install
 또는 예를 들어 /Users/js/.nvm/versions/node/v22.14.0/bin/npm install vue-router axios dotenv
+.env 파일 만들기
 ```
 
 # debug dev
