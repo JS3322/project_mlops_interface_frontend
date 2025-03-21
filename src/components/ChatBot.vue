@@ -13,19 +13,29 @@
         placeholder="메시지를 입력하세요..."
         type="text"
         class="message-input"
+        :disabled="!authStore.token"
       >
-      <button @click="sendMessage" class="send-button">전송</button>
+      <button 
+        @click="sendMessage" 
+        class="send-button"
+        :disabled="!authStore.token"
+      >전송</button>
+    </div>
+    <div v-if="!authStore.token" class="auth-warning">
+      인증이 필요합니다. 상단의 '인증' 버튼을 클릭하여 토큰을 입력해주세요.
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted, nextTick } from 'vue'
+import { useAuthStore } from '../stores/auth'
 import axios from 'axios'
 
 const messages = ref([])
 const userInput = ref('')
 const messagesContainer = ref(null)
+const authStore = useAuthStore()
 
 const scrollToBottom = async () => {
   await nextTick()
@@ -35,7 +45,7 @@ const scrollToBottom = async () => {
 }
 
 const sendMessage = async () => {
-  if (!userInput.value.trim()) return
+  if (!userInput.value.trim() || !authStore.token) return
 
   // 사용자 메시지 추가
   messages.value.push({
@@ -50,6 +60,10 @@ const sendMessage = async () => {
     // 환경 변수에서 REQUEST_URL 가져오기
     const response = await axios.post(import.meta.env.VITE_REQUEST_URL, {
       question: question
+    }, {
+      headers: {
+        'Authorization': `Bearer ${authStore.token}`
+      }
     })
 
     // 응답 메시지 추가
@@ -133,6 +147,11 @@ onMounted(() => {
   font-size: 1rem;
 }
 
+.message-input:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+}
+
 .send-button {
   padding: 0.8rem 1.5rem;
   background-color: #42b983;
@@ -143,7 +162,21 @@ onMounted(() => {
   transition: background-color 0.2s;
 }
 
-.send-button:hover {
+.send-button:hover:not(:disabled) {
   background-color: #3aa876;
+}
+
+.send-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.auth-warning {
+  text-align: center;
+  color: #ff4444;
+  padding: 1rem;
+  background-color: #fff;
+  border-top: 1px solid #eee;
+  font-size: 0.9rem;
 }
 </style> 
