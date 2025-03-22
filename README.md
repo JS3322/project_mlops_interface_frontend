@@ -51,9 +51,3 @@ sudo systemctl restart nginx
 5. 환경변수 설정
 VITE_REQUEST_URL=https://your-api-server.com/api
 ```
-
-
-# package
-```sh
-npm run build
-```
