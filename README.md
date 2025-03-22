@@ -18,19 +18,21 @@
 2. dist/* 파일들을 서버로 copy
 3. nginx 설정
 
-# /etc/nginx/sites-available/vue-app
+# /path/to/nginx/conf/conf.d/vue-app.conf
+
 server {
     listen 80;
-    server_name your_domain.com;  # 도메인이나 IP 주소
+    # server_name your-domain.com;  # 도메인이 있는 경우
 
-    root /var/www/vue-app;  # 빌드된 파일이 위치할 경로
+    root /path/to/nginx/html/vue-app;  # Vue 앱을 위한 디렉토리
     index index.html;
 
+    # Vue Router를 위한 설정
     location / {
-        try_files $uri $uri/ /index.html;  # Vue Router를 위한 설정
+        try_files $uri $uri/ /index.html;
     }
 
-    # API 프록시 설정 (백엔드 서버가 있는 경우)
+    # API 프록시 설정 (필요한 경우)
     location /api {
         proxy_pass http://localhost:your_backend_port;
         proxy_http_version 1.1;
